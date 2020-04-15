@@ -143,40 +143,13 @@ def tobs():
 
     return jsonify(tobs)
 
-# IN PROGRESS
-@app.route("/api/v1.0/<start> ")
-def start(startDate):
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-    
-    query = [Measurement.date, func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
 
-    results =  (session.query(*query)
-                       .filter(func.strftime("%Y-%m-%d", Measurement.date) >= startDate)
-                       .group_by(Measurement.date)
-                       .all())
-    
-    session.close()
-
-    dates = []                       
-    for data in results:
-        date_dict = {}
-        date_dict["Date"] = data[0]
-        date_dict["Min Temp"] = data[1]
-        date_dict["Avg Temp"] = data[2]
-        date_dict["Max Temp"] = data[3]
-        dates.append(date_dict)
-
-    return jsonify(dates)
-
-#IN PROGRESS   
-@app.route("/api/v1.0/<start>/<end>")
-def startend(start, end):
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
+# DID NOT COMPLETE
+#@app.route("/api/v1.0/<start>")
 
 
-    session.close()    
+# DID NOT COMPLETE 
+#@app.route("/api/v1.0/<start>/<end>")
 
 
 if __name__ == '__main__':
